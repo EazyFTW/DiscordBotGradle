@@ -55,6 +55,8 @@ public class GradleDiscordPlugin implements Plugin<Project> {
         if (meta.validate())
             return;
 
+        log(Color.RESET.toString());
+
         // Setting properties
         project.setProperty("version", meta.version);
         project.setProperty("sourceCompatibility", "1.8");

@@ -59,8 +59,6 @@ public class MetaExtension {
             return ValidVersionResponse.NOT_VALID;
 
         try {
-            String intVersion = version.split("_")[1];
-
             URL url1 = new URL("https://ci.dv8tion.net/job/JDA/lastSuccessfulBuild/artifact/build/libs/JDA-" + version + ".jar");
             HttpURLConnection con1 = (HttpURLConnection) url1.openConnection();
             con1.setRequestMethod("GET");
@@ -69,6 +67,11 @@ public class MetaExtension {
             if (con1.getResponseCode() == 200) {
                 return ValidVersionResponse.LATEST;
             } else {
+                if(!version.contains("_") || version.split("_").length != 2 || version.split("_")[1].isEmpty())
+                    return ValidVersionResponse.NOT_VALID;
+
+                String intVersion = version.split("_")[1];
+
                 URL url2 = new URL("https://ci.dv8tion.net/job/JDA/" + intVersion + "/artifact/build/libs/JDA-" + version + ".jar");
                 HttpURLConnection con2 = (HttpURLConnection) url2.openConnection();
                 con2.setRequestMethod("GET");
