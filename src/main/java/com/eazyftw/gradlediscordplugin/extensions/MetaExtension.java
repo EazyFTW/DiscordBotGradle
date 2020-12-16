@@ -19,24 +19,28 @@ public class MetaExtension {
             GradleDiscordPlugin.log("Could not find a 'meta' section with a 'name' field in your build.gradle");
             GradleDiscordPlugin.log();
             GradleDiscordPlugin.log(Color.RED + "Please check the GitHub page of GradleDiscordPlugin for more information");
+            GradleDiscordPlugin.log();
 
             return true;
         } else if (version == null) {
             GradleDiscordPlugin.log("Could not find a 'meta' section with a 'version' field in your build.gradle");
             GradleDiscordPlugin.log();
             GradleDiscordPlugin.log(Color.RED + "Please check the GitHub page of GradleDiscordPlugin for more information");
+            GradleDiscordPlugin.log();
 
             return true;
         } else if (jdaVersion == null) {
             GradleDiscordPlugin.log(Color.RED + "Could not find a 'meta' section with a 'jdaVersion' field in your build.gradle");
             GradleDiscordPlugin.log();
             GradleDiscordPlugin.log(Color.RED + "Please check the GitHub page of GradleDiscordPlugin for more information");
+            GradleDiscordPlugin.log();
 
             return true;
         } else if (type == ValidVersionResponse.NOT_VALID) {
             GradleDiscordPlugin.log(Color.RED + "The 'jdaVersion' specified (" + jdaVersion + ") is not a valid DiscordJDA version.");
             GradleDiscordPlugin.log();
             GradleDiscordPlugin.log(Color.RED + "Please check the GitHub page of GradleDiscordPlugin for more information");
+            GradleDiscordPlugin.log();
 
             return true;
         }
@@ -44,6 +48,7 @@ public class MetaExtension {
         if(type == ValidVersionResponse.VALID) {
             GradleDiscordPlugin.log(Color.YELLOW + "You're not using the latest DiscordJDA version! Find out the version below:");
             GradleDiscordPlugin.log(Color.YELLOW + "https://ci.dv8tion.net/job/JDA/lastSuccessfulBuild/");
+            GradleDiscordPlugin.log();
         }
 
         return false;

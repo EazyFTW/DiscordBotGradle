@@ -3,6 +3,7 @@ package com.eazyftw.gradlediscordplugin;
 import com.eazyftw.gradlediscordplugin.extensions.MetaExtension;
 import com.eazyftw.gradlediscordplugin.manager.DeploymentManager;
 import com.eazyftw.gradlediscordplugin.manager.ResourceManager;
+import com.eazyftw.gradlediscordplugin.util.Color;
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
@@ -44,15 +45,15 @@ public class GradleDiscordPlugin implements Plugin<Project> {
     }
 
     private void onProjectEvaluation(Project project) {
-        if (meta.validate())
-            return;
-
         log("Configuring Gradle Project - Build Settings...");
         log();
         log("Name: " + meta.name + " (" + project.getName() + ")");
         log("Version: " + meta.version);
         log("JDA Version: " + meta.jdaVersion);
         log();
+
+        if (meta.validate())
+            return;
 
         // Setting properties
         project.setProperty("version", meta.version);
@@ -89,7 +90,7 @@ public class GradleDiscordPlugin implements Plugin<Project> {
     }
 
     public static void log(String message) {
-        System.out.println(message);
+        System.out.println(Color.RESET + message);
     }
 
     public static void log() {
