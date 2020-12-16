@@ -34,7 +34,7 @@ public class GradleDiscordPlugin implements Plugin<Project> {
         // Setting up Shadow Plugin
         project.getPlugins().apply("com.github.johnrengelman.shadow");
         getShadowJar(project).getArchiveFileName().set(project.getName() + ".jar");
-        getShadowJar(project).setProperty("destinationDir", project.file(deploymentFile.getLocalOutputPath()));
+        getShadowJar(project).setProperty("destinationDir", project.file("build"));
 
         project.getTasks().getByName("build").dependsOn("shadowJar");
         project.getTasks().getByName("build").doLast((task) -> uploadToRemotes(task, deploymentFile));
@@ -75,7 +75,7 @@ public class GradleDiscordPlugin implements Plugin<Project> {
     }
 
     private void uploadToRemotes(Task buildTask, DeploymentManager deploymentFile) {
-        File file = new File(deploymentFile.getLocalOutputPath() + "/" + buildTask.getProject().getName() + ".jar");
+        File file = new File("build/" + buildTask.getProject().getName() + ".jar");
 
         deploymentFile.getRemotes().stream().filter(DeploymentManager.Remote::isEnabled).forEach(all -> all.uploadFile(file));
     }

@@ -50,12 +50,6 @@ public class DeploymentManager {
         }
     }
 
-    public String getLocalOutputPath() {
-        JSONObject local = (JSONObject) root.get("local");
-
-        return (String) local.get("path");
-    }
-
     public List<Remote> getRemotes() {
         List<Remote> remotes = new ArrayList<>();
 
