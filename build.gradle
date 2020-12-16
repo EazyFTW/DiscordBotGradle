@@ -1,0 +1,31 @@
+group = 'com.eazyftw'
+version = '1.0'
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile gradleApi()
+
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile "com.googlecode.json-simple:json-simple:1.1.1"
+    compile "com.github.jengelman.gradle.plugins:shadow:5.2.0"
+
+    compile "com.googlecode.json-simple:json-simple:1.1.1"
+    compile 'com.jcraft:jsch:0.1.55'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+}
+
+// Removing Version from Output File
+jar {
+    version = null
+}

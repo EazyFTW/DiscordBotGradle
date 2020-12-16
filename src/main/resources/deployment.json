@@ -1,0 +1,12 @@
+{
+  "remotes": [
+    {
+      "enabled": false,
+      "hostname": "domain.com",
+      "port": 22,
+      "username": "root",
+      "password": "password",
+      "path": "/srv"
+    }
+  ]
+}
