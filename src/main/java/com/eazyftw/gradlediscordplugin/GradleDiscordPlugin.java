@@ -64,14 +64,18 @@ public class GradleDiscordPlugin implements Plugin<Project> {
         project.getRepositories().mavenLocal();
         project.getRepositories().mavenCentral();
 
-        Arrays.stream(meta.repositories).forEach(url -> project.getRepositories().maven((maven) -> maven.setUrl(url)));
+        if(meta.repositories != null)
+            Arrays.stream(meta.repositories).forEach(url -> project.getRepositories().maven((maven) -> maven.setUrl(url)));
 
         List<String> dependencies = new ArrayList<>();
         dependencies.add("shadow#net.dv8tion:JDA:" + meta.jdaVersion);
-        dependencies.addAll(Arrays.asList(meta.dependencies));
+        if(meta.dependencies != null)
+            dependencies.addAll(Arrays.asList(meta.dependencies));
 
         dependencies.stream().filter(entry -> entry.contains("#")).map(entry -> entry.split("#")).forEach(confAndUrl -> project.getDependencies().add(confAndUrl[0], confAndUrl[1]));
-        Arrays.stream(meta.relocations).filter(entry -> entry.contains("#")).map(entry -> entry.split("#")).forEach(fromTo -> getShadowJar(project).relocate(fromTo[0], fromTo[1].replace("%", project.getName())));
+
+        if(meta.relocations != null)
+            Arrays.stream(meta.relocations).filter(entry -> entry.contains("#")).map(entry -> entry.split("#")).forEach(fromTo -> getShadowJar(project).relocate(fromTo[0], fromTo[1].replace("%", project.getName())));
     }
 
     private void uploadToRemotes(Task buildTask, DeploymentManager deploymentFile) {
