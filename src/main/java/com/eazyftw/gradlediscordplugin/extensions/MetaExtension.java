@@ -54,7 +54,7 @@ public class MetaExtension {
             return ValidVersionResponse.NOT_VALID;
 
         try {
-            String intVersion = version.split("_")[0];
+            String intVersion = version.split("_")[1];
 
             URL url1 = new URL("https://ci.dv8tion.net/job/JDA/lastSuccessfulBuild/artifact/build/libs/JDA-" + version + ".jar");
             HttpURLConnection con1 = (HttpURLConnection) url1.openConnection();
