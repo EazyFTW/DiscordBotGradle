@@ -11,9 +11,7 @@ import org.gradle.api.Task;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class GradleDiscordPlugin implements Plugin<Project> {
 
@@ -62,6 +60,10 @@ public class GradleDiscordPlugin implements Plugin<Project> {
         project.setProperty("sourceCompatibility", "1.8");
         project.setProperty("targetCompatibility", "1.8");
 
+        Map<String, String> maps = new HashMap<>();
+        maps.put("Main-Class", meta.mainClass);
+        getShadowJar(project).manifest((m) -> m.attributes(maps));
+
         // Setting up repositories
         project.getRepositories().jcenter();
         project.getRepositories().mavenLocal();
@@ -71,7 +73,7 @@ public class GradleDiscordPlugin implements Plugin<Project> {
             Arrays.stream(meta.repositories).forEach(url -> project.getRepositories().maven((maven) -> maven.setUrl(url)));
 
         List<String> dependencies = new ArrayList<>();
-        dependencies.add("shadow#net.dv8tion:JDA:" + meta.jdaVersion);
+        dependencies.add("implementation#net.dv8tion:JDA:" + meta.jdaVersion);
         if(meta.dependencies != null)
             dependencies.addAll(Arrays.asList(meta.dependencies));
 

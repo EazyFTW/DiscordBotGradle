@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class MetaExtension {
 
-    public String name, version, jdaVersion;
+    public String name, version, jdaVersion, mainClass;
     public String[] repositories, dependencies, relocations;
 
     public boolean validate() {
@@ -17,6 +17,13 @@ public class MetaExtension {
 
         if (name == null) {
             GradleDiscordPlugin.log("Could not find a 'meta' section with a 'name' field in your build.gradle");
+            GradleDiscordPlugin.log();
+            GradleDiscordPlugin.log(Color.RED + "Please check the GitHub page of GradleDiscordPlugin for more information");
+            GradleDiscordPlugin.log();
+
+            return true;
+        } else if (mainClass == null) {
+            GradleDiscordPlugin.log("Could not find a 'meta' section with a 'mainClass' field in your build.gradle");
             GradleDiscordPlugin.log();
             GradleDiscordPlugin.log(Color.RED + "Please check the GitHub page of GradleDiscordPlugin for more information");
             GradleDiscordPlugin.log();
