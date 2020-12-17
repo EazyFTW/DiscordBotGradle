@@ -94,7 +94,7 @@ public class DeploymentManager {
                 sftp.exit();
 
                 session.disconnect();
-                GradleDiscordPlugin.log(Color.GREEN_BRIGHT + "Successfully uploaded '" + file.getName() + "' to " + path + "!");
+                GradleDiscordPlugin.log(Color.GREEN_BRIGHT + "Successfully uploaded " + file.getName() + " to '" + path + "'!" + Color.RESET);
             } catch (JSchException | SftpException | FileNotFoundException e) {
                 GradleDiscordPlugin.log(Color.RED + "Couldn't upload file to remote '" + hostname + "':");
                 GradleDiscordPlugin.log(e.getMessage());
