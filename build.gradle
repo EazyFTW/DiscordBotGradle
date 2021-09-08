@@ -11,11 +11,10 @@ targetCompatibility = 1.8
 dependencies {
     compile gradleApi()
 
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile 'commons-io:commons-io:2.6'
     compile "com.googlecode.json-simple:json-simple:1.1.1"
     compile "com.github.jengelman.gradle.plugins:shadow:5.2.0"
 
-    compile "com.googlecode.json-simple:json-simple:1.1.1"
     compile 'com.jcraft:jsch:0.1.55'
 }
 

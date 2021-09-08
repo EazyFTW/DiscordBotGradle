@@ -8,9 +8,15 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
+import org.gradle.api.artifacts.ModuleDependency;
+import org.gradle.api.artifacts.repositories.ArtifactRepository;
+import org.gradle.api.artifacts.repositories.MavenArtifactRepository;
+import org.gradle.api.artifacts.repositories.UrlArtifactRepository;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 
 public class GradleDiscordPlugin implements Plugin<Project> {
@@ -68,6 +74,14 @@ public class GradleDiscordPlugin implements Plugin<Project> {
         project.getRepositories().jcenter();
         project.getRepositories().mavenLocal();
         project.getRepositories().mavenCentral();
+        project.getRepositories().maven(r -> {
+            try {
+                r.setUrl(new URI("https://m2.dv8tion.net/releases"));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            r.setName("m2-dv8tion");
+        });
 
         if(meta.repositories != null)
             Arrays.stream(meta.repositories).forEach(url -> project.getRepositories().maven((maven) -> maven.setUrl(url)));
@@ -77,7 +91,16 @@ public class GradleDiscordPlugin implements Plugin<Project> {
         if(meta.dependencies != null)
             dependencies.addAll(Arrays.asList(meta.dependencies));
 
-        dependencies.stream().filter(entry -> entry.contains("#")).map(entry -> entry.split("#")).forEach(confAndUrl -> project.getDependencies().add(confAndUrl[0], confAndUrl[1]));
+        dependencies.stream().filter(entry -> entry.contains("#")).map(entry -> entry.split("#")).forEach(confAndUrl -> {
+            ModuleDependency module = (ModuleDependency) project.getDependencies().add(confAndUrl[0], confAndUrl[1]);
+
+            if(!meta.opus && module != null && confAndUrl[1].contains("net.dv8tion:JDA:")) {
+                HashMap<String, String> exclude = new HashMap<>();
+                exclude.put("module", "opus-java");
+
+                module.exclude(exclude);
+            }
+        });
 
         if(meta.relocations != null)
             Arrays.stream(meta.relocations).filter(entry -> entry.contains("#")).map(entry -> entry.split("#")).forEach(fromTo -> getShadowJar(project).relocate(fromTo[0], fromTo[1].replace("%", project.getName())));

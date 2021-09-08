@@ -11,6 +11,7 @@ public class MetaExtension {
 
     public String name, version, jdaVersion, mainClass;
     public String[] repositories, dependencies, relocations;
+    public boolean opus = false;
 
     public boolean validate() {
         ValidVersionResponse type = versionType(jdaVersion);
