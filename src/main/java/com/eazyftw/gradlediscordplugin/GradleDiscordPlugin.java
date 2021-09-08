@@ -74,14 +74,7 @@ public class GradleDiscordPlugin implements Plugin<Project> {
         project.getRepositories().jcenter();
         project.getRepositories().mavenLocal();
         project.getRepositories().mavenCentral();
-        project.getRepositories().maven(r -> {
-            try {
-                r.setUrl(new URI("https://m2.dv8tion.net/releases"));
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            r.setName("m2-dv8tion");
-        });
+        project.getRepositories().maven((maven) -> maven.setUrl("https://m2.dv8tion.net/releases"));
 
         if(meta.repositories != null)
             Arrays.stream(meta.repositories).forEach(url -> project.getRepositories().maven((maven) -> maven.setUrl(url)));
