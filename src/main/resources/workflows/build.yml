@@ -49,5 +49,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: build/${{ env.name }}.jar
-          asset_name: ${{ env.name }}
+          asset_name: ${{ env.name }}.jar
           asset_content_type: application/java-archive
