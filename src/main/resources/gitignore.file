@@ -6,3 +6,4 @@ out/
 build/
 libs/
 deployment.json
+config.json
